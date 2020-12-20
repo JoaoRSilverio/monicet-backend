@@ -12,6 +12,9 @@ public class MonicetApplication {
 	UserRepo userRepo;
 	public static void main(String[] args) {
 		SpringApplication.run(MonicetApplication.class, args);
+
 	}
+
+
 
 }
