@@ -1,8 +1,11 @@
 package pt.geniusgrow.monicet.interfaces.repositories;
 
-import pt.geniusgrow.monicet.models.User;
+import pt.geniusgrow.monicet.models.application.ApplicationUser;
+
+import javax.persistence.PersistenceException;
 
 public interface UserRepository  {
-    User getUser(Long id);
-    Long saveUser(User user) throws Exception;
+    ApplicationUser getUser(Long id);
+    ApplicationUser getUserByEmail(String email) ;
+    Long saveUser(ApplicationUser applicationUser) throws PersistenceException;
 }
