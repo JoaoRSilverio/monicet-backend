@@ -3,7 +3,7 @@ Monicet Backend
 
 # Description
 The Monicet Backend is responsible for handling the collaborative research and public facing info part of the Monicet System it comprises of two independent projects
-the SpringBoot monicetApplication(./src/main/) and the React Front End(./ui/)
+the SpringBoot monicetApplication(`./src/main/`) and the React Front End(`./ui/`)
 
 
 #How to build
