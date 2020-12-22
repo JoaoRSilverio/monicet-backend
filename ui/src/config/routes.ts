@@ -6,6 +6,7 @@ export enum Routes {
     PUBLICATIONS="/publications",
     CONTACTS="/contacts",
     LOGIN="/login",
+    REGISTRATION="/registration",
 // LOGGED IN ROUTES
     DASHBOARD="/dashboard",
     CATALOG="/catalog",

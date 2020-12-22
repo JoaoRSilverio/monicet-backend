@@ -10,7 +10,7 @@ import java.security.Timestamp;
 @Getter
 @Setter
 @MappedSuperclass
-public abstract class BaseEntity {
+public class BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;

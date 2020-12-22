@@ -9,7 +9,7 @@ public class Routes {
     public static final String FRONTENDV1 = API + WEB + VERSION1;
 
     // FRONT END ROUTES
-    public static final String REGISTER =  FRONTENDV1 + "/register";
+    public static final String WEB_REGISTER =  FRONTENDV1 + "/register";
     public static final String LOGIN = FRONTENDV1 + "/login";
 
 }

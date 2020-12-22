@@ -3,8 +3,10 @@ import {BrowserRouter as Router, Route,Switch, useRouteMatch} from "react-router
 import './App.css';
 import HomePage from "./pages/HomePage";
 import BasePage from "./pages/BasePage";
-import {Alignment, Button, Navbar} from "@blueprintjs/core";
 import {Routes} from "./config/routes";
+import LoginPage from "./pages/LoginPage";
+import NavigationTopBar from "./components/NavigationTopBar";
+import {RegisterPage} from "./pages/RegistrationPage";
 function DashboardNavigation(){
     const match = useRouteMatch();
     return (
@@ -92,40 +94,10 @@ function BackOfficeDashboardNavigation(){
         </Switch>
     )
 }
-function NavigationBar(){
-    return(
-        <Navbar>
-            <Navbar.Group align={Alignment.LEFT}>
-                <Navbar.Heading>Monicet</Navbar.Heading>
-                <Navbar.Divider />
-                <Button
-                    onClick={()=> window.location.href = Routes.NEWS}
-                    className="bp3-minimal"
-                    icon="clipboard"
-                    text="News"  />
-                <Button
-                    onClick={()=> window.location.href = Routes.TEAM}
-                    className="bp3-minimal"
-                    icon="people"
-                    text="Team And Partners" />
-                <Button
-                    onClick={()=> window.location.href = Routes.PUBLICATIONS}
-                    className="bp3-minimal"
-                    icon="document"
-                    text="Publications" />
-                <Button
-                    onClick={()=> window.location.href = Routes.LOGIN}
-                    className="bp3-minimal"
-                    icon="lock"
-                    text="Login" />
-            </Navbar.Group>
-        </Navbar>
-    )
-}
 function App() {
   return (
     <div className="App">
-            <NavigationBar />
+            <NavigationTopBar />
         <Router>
      <BasePage>
          <Switch>
@@ -145,9 +117,10 @@ function App() {
                  </BasePage>
              </Route>
              <Route path={Routes.LOGIN}>
-                 <BasePage>
-                     <div>{"Login"}</div>
-                 </BasePage>
+                 <LoginPage />
+             </Route>
+             <Route path={Routes.REGISTRATION}>
+                 <RegisterPage />
              </Route>
              <Route path={Routes.DASHBOARD}>
                 <DashboardNavigation />

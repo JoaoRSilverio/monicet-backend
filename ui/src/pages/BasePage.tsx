@@ -7,7 +7,7 @@ export interface IHomepageProps{
 
 const BasePage:React.FC<IHomepageProps> = props => {
     return(
-        <div>
+        <div style={{width:500}}>
             {props.children}
         </div>
     )

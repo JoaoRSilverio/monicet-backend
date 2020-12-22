@@ -8,7 +8,9 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import pt.geniusgrow.monicet.Routes;
 import pt.geniusgrow.monicet.models.application.ApplicationUser;
 
 import javax.servlet.FilterChain;
@@ -22,11 +24,18 @@ import java.util.Date;
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     @Autowired
     private AuthenticationManager authenticationManager;
+
+    public JWTAuthenticationFilter(AuthenticationManager authenticationManager){
+
+        this.authenticationManager = authenticationManager;
+        setFilterProcessesUrl(Routes.LOGIN);
+    }
+
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         try {
             final ApplicationUser creds = new ObjectMapper().readValue(request.getInputStream(), ApplicationUser.class);
-            return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(creds.getEmail(),creds.getPassword(),new ArrayList<>()));
+            return this.authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(creds.getEmail(),creds.getPassword(),new ArrayList<>()));
         } catch (IOException exception){
             throw new RuntimeException(exception);
         }
@@ -40,5 +49,10 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                   .withExpiresAt(new Date(System.currentTimeMillis() + SecurityConstants.EXPIRATION_TIME))
                   .sign(Algorithm.HMAC512(SecurityConstants.SECRET.getBytes()));
           response.addHeader(SecurityConstants.HEADER_STRING, SecurityConstants.TOKEN_PREFIX + token);
+    }
+
+    @Override
+    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
+        super.unsuccessfulAuthentication(request, response, failed);
     }
 }

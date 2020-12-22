@@ -1,7 +1,7 @@
 import {IUserProfile} from "./interfaces";
 
 export interface ILoginRequest{
-    phoneNr: string;
+    email: string;
     password: string;
 }
 
@@ -12,12 +12,9 @@ export interface ILoginResponse {
 }
 
 export interface  IRegistrationRequest {
-    phoneNr: string;
     password: string;
     email: string;
     username: string;
-    firstName: string;
-    lastName: string;
 }
 export interface IRegistrationResponse{
     refreshToken: string;
