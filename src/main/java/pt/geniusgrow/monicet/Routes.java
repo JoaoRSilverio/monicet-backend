@@ -11,6 +11,5 @@ public class Routes {
     // FRONT END ROUTES
     public static final String REGISTER =  FRONTENDV1 + "/register";
     public static final String LOGIN = FRONTENDV1 + "/login";
-    public static final String DASHBOARD = FRONTENDV1 + "/dashboard";
 
 }
