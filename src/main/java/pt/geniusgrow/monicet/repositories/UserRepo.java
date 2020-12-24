@@ -21,7 +21,11 @@ public class UserRepo extends BeanRepository<Long, ApplicationUser> implements U
 
     @Override
     public ApplicationUser getUserByEmail(String email) {
-       ApplicationUser applicationUser =(ApplicationUser) this.server.find(ApplicationUser.class).where().eq("email",email);
+       ApplicationUser applicationUser = this.server
+               .find(ApplicationUser.class)
+               .where()
+               .eq("email",email)
+               .findOne();
        return applicationUser;
     }
 

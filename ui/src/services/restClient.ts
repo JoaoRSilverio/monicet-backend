@@ -1,8 +1,16 @@
 import axios, {AxiosInstance, AxiosResponse} from "axios";
 import {MonicetAPI} from "../config/monicetAPI";
 import {ILoginRequest, ILoginResponse, IRegistrationRequest, IRegistrationResponse} from "../interfaces/dtos";
+import {useState} from "react";
 
-
+interface IRestAuthState{
+    token: string;
+    refreshToken: string;
+}
+let AuthState = {
+    token:"",
+    refreshToken:""
+}
 
 const POST = async (route: string, data:any):Promise<AxiosResponse<any>> =>{
     // const authState = {tokens:{accessToken:""}};
@@ -34,10 +42,23 @@ export async function register(http: AxiosInstance,data:IRegistrationRequest):Pr
 
 export async function login(http:AxiosInstance, data:ILoginRequest)
     :Promise<ILoginResponse> {
-    const response: AxiosResponse<ILoginResponse> = await http.post(MonicetAPI.LOGIN,data);
+    const response: AxiosResponse<ILoginResponse> = await http.post(MonicetAPI.LOGIN,data,);
     console.log("Login Result", response);
-    if(response.status == 200){
+    if(response.status === 200){
+        AuthState = response.data;
         return response.data;
     }
     throw new Error(`Login Failed ${response.status} ${response.statusText} `)
+}
+
+export async function testProtectedResource(http:AxiosInstance,data: any){
+    const response:AxiosResponse<any> = await http.post(MonicetAPI.TEST_END_POINT,data,{
+        headers:{
+            "Authorization" :` Bearer ${AuthState.token}`
+        }
+    });
+    console.log("Protected Endpoint Result",response);
+    if(response.status === 200){
+        return response.data;
+    }
 }

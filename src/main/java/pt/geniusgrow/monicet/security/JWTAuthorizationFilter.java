@@ -26,15 +26,17 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
        final String header = request.getHeader(SecurityConstants.HEADER_STRING);
        if(header == null || !header.startsWith(SecurityConstants.TOKEN_PREFIX)){
            chain.doFilter(request,response);
+       } else {
+           UsernamePasswordAuthenticationToken authenticationToken = getAuthentication(request);
+           SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+           chain.doFilter(request, response);
        }
-         UsernamePasswordAuthenticationToken authenticationToken = getAuthentication(request);
-        SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-        chain.doFilter(request,response);
     }
     private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
         String token = request.getHeader(SecurityConstants.HEADER_STRING);
         if (token != null) {
-            String user = JWT.require(Algorithm.HMAC512(SecurityConstants.SECRET.getBytes()))
+            String secret = "harcodedSecretBecauseICantInjectStuffYet";
+            String user = JWT.require(Algorithm.HMAC512(secret.getBytes()))
                     .build()
                     .verify(token.replace(SecurityConstants.TOKEN_PREFIX, ""))
                     .getSubject();

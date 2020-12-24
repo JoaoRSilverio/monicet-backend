@@ -1,7 +1,7 @@
 import React, {ChangeEvent, useState} from "react";
 import {IHomepageProps} from "./HomePage";
 import axios from "axios"
-import {login, register} from "../services/restClient";
+import {login, register, testProtectedResource} from "../services/restClient";
 import {Button, InputGroup} from "@blueprintjs/core";
 import {ILoginRequest} from "../interfaces/dtos";
 import {log} from "util";
@@ -26,8 +26,18 @@ function useLoginRequest():[ILoginRequest,(lr:ILoginRequest)=> void]{
     return [loginRequest,setLoginRequest];
 }
 
+interface IAuthState{
+    refreshToken: string;
+    token: string;
+}
+function useAuthState():[IAuthState,(auth:IAuthState)=> void]{
+    const [authState,setAuthState] = useState({ token:"", refreshToken:""} as IAuthState);
+    return [authState,setAuthState];
+}
+
 const LoginPage:React.FC<IHomepageProps> = props => {
     // login(axios,{email:"reactexample",password:"12345"});
+    const [authState,setAuthState] = useAuthState();
     const [loginRequest,setLoginRequest] = useLoginRequest();
     function handleInput(text: string, field: FIELDS){
         console.log("handleInput",text,field);
@@ -42,7 +52,13 @@ const LoginPage:React.FC<IHomepageProps> = props => {
         }
 
     }
-
+    async function doLogin(){
+      const authResponse = await  login(axios,loginRequest);
+      setAuthState(authResponse)
+    }
+    async function doTest(){
+        testProtectedResource(axios,{someText:"reactAppText"})
+    }
     return(
         <BasePage>
         <div>
@@ -68,8 +84,17 @@ const LoginPage:React.FC<IHomepageProps> = props => {
             onChange={(event:any) => handleInput(event.target.value,FIELDS.PASSWORD)}
             value={loginRequest.password} />
             </FormGroup>
-            <Button icon={"airplane"} onClick={()=> login(axios,loginRequest)} />
+            <Button icon={"airplane"} onClick={()=> doLogin() } />
         </div>
+            {authState.token &&
+            (<div>
+                <h3>{"Logged In"}</h3>
+                <h5>{`Access Token: ${authState.token}`}</h5>
+                <h5>{`Refresh Token: ${authState.refreshToken}`}</h5>
+
+            </div>)
+            }
+            <Button text={"accessResource"} onClick={()=> doTest()} />
         </BasePage>
     )
 }

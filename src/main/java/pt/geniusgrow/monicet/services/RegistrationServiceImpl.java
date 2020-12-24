@@ -18,6 +18,7 @@ public class RegistrationServiceImpl implements RegistrationService {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
     @Override
     public UserDto registerNewUser(ApplicationUser applicationUser) throws PersistenceException {
+
         applicationUser.setPassword(bCryptPasswordEncoder.encode(applicationUser.getPassword()));
         userRepo.saveUser(applicationUser);
         return new UserDto(applicationUser.getName(), applicationUser.getEmail());
