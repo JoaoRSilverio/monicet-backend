@@ -13,6 +13,14 @@ public class Routes {
     // FRONT END ROUTES
     public static final String TESTROUTE= FRONTENDV1 + "/testme";
     public static final String WEB_REGISTER =  FRONTENDV1 + "/register";
-    public static final String LOGIN = FRONTENDV1 + "/login";
+
+
+    // CONTROLLER
+    public static final String LOGIN_CONTROLLER = FRONTENDV1 + "/login";
+    public static final String PERSON_CONTROLLER = FRONTENDV1 + "/person";
+
+
+
+
 
 }

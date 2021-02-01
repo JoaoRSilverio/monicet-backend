@@ -1,12 +1,17 @@
 package pt.geniusgrow.monicet.models.common;
 
+import java.security.Timestamp;
+
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+
 import io.ebean.annotation.WhenCreated;
 import io.ebean.annotation.WhenModified;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.*;
-import java.security.Timestamp;
 @Getter
 @Setter
 @MappedSuperclass

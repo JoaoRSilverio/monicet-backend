@@ -1,18 +1,23 @@
 package pt.geniusgrow.monicet.controllers.web;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import pt.geniusgrow.monicet.Routes;
 import pt.geniusgrow.monicet.dtos.UserDto;
 import pt.geniusgrow.monicet.dtos.requests.RegistrationRequestDto;
 import pt.geniusgrow.monicet.interfaces.services.RegistrationService;
 import pt.geniusgrow.monicet.models.application.ApplicationUser;
 import pt.geniusgrow.monicet.models.application.Role;
-import pt.geniusgrow.monicet.security.ERoles;
-
-import java.util.HashSet;
-import java.util.Set;
+import pt.geniusgrow.monicet.models.application.company.Person;
+import pt.geniusgrow.monicet.models.common.ERoles;
 
 @Controller
 public class UserController {
@@ -27,12 +32,13 @@ public class UserController {
         Set<Role> roles = new HashSet<>();
         Role userRole = new Role();
         userRole.setName(ERoles.USER);
-        roles.add(userRole);
+        roles.add(userRole); 
+        final Person person = new Person();
         final ApplicationUser newUser =
                 new ApplicationUser(
-                        registration.getUsername(),
                         registration.getEmail(),
                         registration.getPassword(),
+                        person,
                         roles
                         );
 

@@ -9,13 +9,11 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.authentication.AuthenticationFilter;
-import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
 import pt.geniusgrow.monicet.Routes;
 import pt.geniusgrow.monicet.interfaces.services.CustomUserDetailService;
 
@@ -35,9 +33,9 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .antMatchers(HttpMethod.GET,"/static/**/*")
                 .permitAll()
-                .antMatchers(HttpMethod.POST, Routes.LOGIN)
-                .permitAll()
-                .antMatchers(HttpMethod.GET, "/api/**/*")
+                .antMatchers(HttpMethod.POST, Routes.LOGIN_CONTROLLER)
+                .permitAll() 
+                .antMatchers(HttpMethod.GET, Routes.API + "/**/*")
                 .authenticated()
                 .anyRequest().authenticated()
                 .and()

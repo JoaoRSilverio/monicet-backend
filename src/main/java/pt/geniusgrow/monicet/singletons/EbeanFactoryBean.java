@@ -1,14 +1,14 @@
 package pt.geniusgrow.monicet.singletons;
 
-import javax.sql.DataSource;
-import io.ebean.EbeanServer;
-import io.ebean.EbeanServerFactory;
-import io.ebean.config.CurrentUserProvider;
-import io.ebean.config.ServerConfig;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
+
+import io.ebean.EbeanServer;
+import io.ebean.EbeanServerFactory;
+import io.ebean.config.CurrentUserProvider;
+import io.ebean.config.ServerConfig;
 
 /**
  * Spring factory for creating the EbeanServer singleton.
@@ -16,8 +16,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class EbeanFactoryBean implements FactoryBean<EbeanServer> {
 
-  @Qualifier("CurrentUser")
-  CurrentUserProvider currentUser;
+    @Autowired
+    @Qualifier("CurrentUser")
+    CurrentUserProvider currentUser;
 
     @Override
     public EbeanServer getObject() throws Exception {
@@ -26,7 +27,7 @@ public class EbeanFactoryBean implements FactoryBean<EbeanServer> {
         config.setName("db");
         config.setCurrentUserProvider(currentUser);
         config.loadFromProperties();
-
+        
         return EbeanServerFactory.create(config);
     }
 

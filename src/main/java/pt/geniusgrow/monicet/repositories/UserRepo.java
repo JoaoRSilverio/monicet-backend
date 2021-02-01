@@ -1,11 +1,12 @@
 package pt.geniusgrow.monicet.repositories;
 
-import io.ebean.EbeanServer;
+import javax.persistence.PersistenceException;
+
 import org.springframework.stereotype.Repository;
+
+import io.ebean.EbeanServer;
 import pt.geniusgrow.monicet.interfaces.repositories.UserRepository;
 import pt.geniusgrow.monicet.models.application.ApplicationUser;
-
-import javax.persistence.PersistenceException;
 
 @Repository
 public class UserRepo extends BeanRepository<Long, ApplicationUser> implements UserRepository {
