@@ -13,18 +13,15 @@ import pt.geniusgrow.monicet.Routes;
 import pt.geniusgrow.monicet.dtos.requests.LoginRequestDto;
 import pt.geniusgrow.monicet.dtos.responses.LoginResponseDto;
 import pt.geniusgrow.monicet.interfaces.services.LoginService;
-import pt.geniusgrow.monicet.interfaces.services.RegistrationService;
 
 @RestController
-@RequestMapping(value =  Routes.LOGIN_CONTROLLER)
+@RequestMapping(value = Routes.LOGIN_CONTROLLER)
 public class LoginController {
     @Autowired
     AuthenticationManager authenticationManager;
     @Autowired
     LoginService loginService;
-    @Autowired
-    RegistrationService countryService;
-
+   
     @RequestMapping(method = RequestMethod.POST)
     public LoginResponseDto login(@RequestBody LoginRequestDto loginRequestDto) {
         Authentication authentication = authenticationManager.authenticate(

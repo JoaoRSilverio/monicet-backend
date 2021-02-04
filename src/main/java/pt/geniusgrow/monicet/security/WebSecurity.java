@@ -15,14 +15,14 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import pt.geniusgrow.monicet.Routes;
-import pt.geniusgrow.monicet.interfaces.services.CustomUserDetailService;
+import pt.geniusgrow.monicet.interfaces.services.DefaultUserDetailService;
 
 @EnableWebSecurity
 public class WebSecurity extends WebSecurityConfigurerAdapter {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
     @Autowired
-    private CustomUserDetailService userDetailsService;
+    private DefaultUserDetailService userDetailsService;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {

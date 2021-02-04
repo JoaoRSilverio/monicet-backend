@@ -5,8 +5,9 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import lombok.Getter;
-import lombok.Setter;
+import pt.geniusgrow.monicet.dtos.entities.company.BoatDto;
+import pt.geniusgrow.monicet.models.common.BaseEntity;
+
 @Table(name = "monicet_boat")
 @Entity
 public class Boat extends BaseEntity {
@@ -26,6 +27,65 @@ public class Boat extends BaseEntity {
         this.length = length;
         this.power = power;
         this.height = height;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Integer getLength() {
+        return length;
+    }
+
+    public void setLength(Integer length) {
+        this.length = length;
+    }
+
+    public Float getPower() {
+        return power;
+    }
+
+    public void setPower(Float power) {
+        this.power = power;
+    }
+
+    public Float getHeight() {
+        return height;
+    }
+
+    public void setHeight(Float height) {
+        this.height = height;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
+    
+    public void edit(BoatDto dto) {
+        this.name = dto.getName();
+        this.length = dto.getLength();
+        this.power = dto.getPower();
+        this.height = dto.getHeight();
+    }
+
+    public BoatDto getDto() {
+        BoatDto dto = new BoatDto();
+
+        dto.setId(getId().toString());
+        dto.setName(name);
+        dto.setLength(length);
+        dto.setHeight(height);
+        dto.setPower(power);
+
+        return dto;
     }
 
 }

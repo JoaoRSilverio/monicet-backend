@@ -1,4 +1,4 @@
-package pt.geniusgrow.monicet.dtos;
+package pt.geniusgrow.monicet.dtos.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

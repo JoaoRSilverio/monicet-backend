@@ -13,6 +13,7 @@ import javax.persistence.Table;
 import io.ebean.annotation.Index;
 import lombok.Getter;
 import lombok.Setter;
+import pt.geniusgrow.monicet.dtos.entities.company.UserDto;
 import pt.geniusgrow.monicet.models.application.company.Person;
 import pt.geniusgrow.monicet.models.common.BaseEntity;
 import pt.geniusgrow.monicet.models.common.ERoles;
@@ -71,6 +72,22 @@ public class ApplicationUser extends BaseEntity {
         }else {
             this.roles = roles;
         }
+    }
+
+    public void edit(UserDto dto) {
+        this.password = dto.getPassword();
+        this.person.edit(dto.getPerson());
+        this.roles = dto.getRoles();
+    }
+
+    public UserDto getDto() {
+        UserDto dto = new UserDto();
+
+        dto.setEmail(email);
+        dto.setPerson(person.getDto());
+        dto.setRoles(roles);
+
+        return dto;
     }
 
 }

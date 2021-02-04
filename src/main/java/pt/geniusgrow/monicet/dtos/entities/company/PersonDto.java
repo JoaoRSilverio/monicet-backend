@@ -1,10 +1,11 @@
-package pt.geniusgrow.monicet.dtos;
+package pt.geniusgrow.monicet.dtos.entities.company;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import pt.geniusgrow.monicet.dtos.entities.AddressDto;
 
-@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 public class PersonDto {

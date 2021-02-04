@@ -13,7 +13,7 @@ import javax.persistence.Table;
 
 import lombok.Getter;
 import lombok.Setter;
-import pt.geniusgrow.monicet.dtos.requests.PersonRequestDto;
+import pt.geniusgrow.monicet.dtos.entities.company.PersonDto;
 import pt.geniusgrow.monicet.models.application.ApplicationUser;
 import pt.geniusgrow.monicet.models.common.BaseEntity;
 
@@ -57,10 +57,21 @@ public class Person extends BaseEntity {
         this.company = company;
     }
 
-	public void init(PersonRequestDto personDto) {
+	public void edit(PersonDto personDto) {
         this.name = personDto.getName();
         this.firstName = personDto.getFirstName();
         this.lastName = personDto.getLastName();
         this.occupation = personDto.getOccupation();
-	}
+    }
+    
+    public PersonDto getDto() {
+        PersonDto dto = new PersonDto();
+
+        dto.setFirstName(firstName);
+        dto.setLastName(lastName);
+        dto.setName(name);
+        dto.setOccupation(occupation);
+
+        return dto;
+    }
 }

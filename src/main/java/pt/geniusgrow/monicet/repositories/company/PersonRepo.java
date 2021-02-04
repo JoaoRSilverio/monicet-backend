@@ -1,4 +1,4 @@
-package pt.geniusgrow.monicet.repositories.person;
+package pt.geniusgrow.monicet.repositories.company;
 
 import javax.persistence.PersistenceException;
 
@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import io.ebean.EbeanServer;
-import pt.geniusgrow.monicet.interfaces.repositories.PersonRepository;
+import pt.geniusgrow.monicet.interfaces.repositories.company.PersonRepository;
 import pt.geniusgrow.monicet.models.application.company.Person;
 import pt.geniusgrow.monicet.models.common.ERoles;
 import pt.geniusgrow.monicet.repositories.BeanRepository;
@@ -16,7 +16,7 @@ import pt.geniusgrow.monicet.repositories.UserRepo;
 public class PersonRepo extends BeanRepository<Long, Person> implements PersonRepository {
     
     @Autowired
-    private UserRepo userRepo;
+    private UserRepo userRepo; 
     
     public PersonRepo(EbeanServer server) {
         super(Person.class, server);

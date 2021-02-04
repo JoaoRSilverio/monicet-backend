@@ -27,34 +27,37 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     @Autowired
     private AuthenticationManager authenticationManager;
 
-    public JWTAuthenticationFilter(AuthenticationManager authenticationManager){
+    public JWTAuthenticationFilter(AuthenticationManager authenticationManager) {
 
         this.authenticationManager = authenticationManager;
         setFilterProcessesUrl(Routes.LOGIN_CONTROLLER);
     }
 
     @Override
-    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
+    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
+            throws AuthenticationException {
         try {
             final ApplicationUser creds = new ObjectMapper().readValue(request.getInputStream(), ApplicationUser.class);
-            return this.authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(creds.getEmail(),creds.getPassword(),new ArrayList<>()));
-        } catch (IOException exception){
+            return this.authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(creds.getEmail(), creds.getPassword(), new ArrayList<>()));
+        } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
 
     }
 
     @Override
-    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
-          String token = JWT.create()
-                  .withSubject(((ApplicationUser) authResult.getPrincipal()).getEmail())
-                  .withExpiresAt(new Date(System.currentTimeMillis() + SecurityConstants.EXPIRATION_TIME))
-                  .sign(Algorithm.HMAC512(SecurityConstants.SECRET.getBytes()));
-          response.addHeader(SecurityConstants.HEADER_STRING, SecurityConstants.TOKEN_PREFIX + token);
+    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
+            Authentication authResult) throws IOException, ServletException {
+        String token = JWT.create().withSubject(((ApplicationUser) authResult.getPrincipal()).getEmail())
+                .withExpiresAt(new Date(System.currentTimeMillis() + SecurityConstants.EXPIRATION_TIME))
+                .sign(Algorithm.HMAC512(SecurityConstants.SECRET.getBytes()));
+        response.addHeader(SecurityConstants.HEADER_STRING, SecurityConstants.TOKEN_PREFIX + token);
     }
 
     @Override
-    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
+    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
+            AuthenticationException failed) throws IOException, ServletException {
         super.unsuccessfulAuthentication(request, response, failed);
     }
 }

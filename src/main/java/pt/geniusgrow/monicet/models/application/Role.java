@@ -7,13 +7,9 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Table;
 
-import lombok.Getter;
-import lombok.Setter;
 import pt.geniusgrow.monicet.models.common.BaseEntity;
 import pt.geniusgrow.monicet.models.common.ERoles;
 
-@Getter
-@Setter
 @Table(name = "roles")
 @Entity
 public class Role extends BaseEntity {
@@ -26,5 +22,16 @@ public class Role extends BaseEntity {
             throw new IllegalArgumentException("Role type must be defined.");
         }
         this.name = roleType;
+    }
+
+    public ERoles getName() {
+        return name;
+    }
+
+    public void setName(ERoles role) {
+        if(role == null) {
+            throw new IllegalArgumentException("Role type must be defined.");
+        }
+        this.name = role;
     }
 }
